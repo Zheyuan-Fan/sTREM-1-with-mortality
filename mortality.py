@@ -95,7 +95,7 @@ if st.button("Make Prediction"):  # 如果点击了预测按钮
     plt.figure(figsize=(10, 3))  # 设置图形大小
 
     # Create bar chart
-    bars = plt.barh(['Not Sick', 'Sick'], 
+    bars = plt.barh(['Survival', 'Death'], 
                     [sample_prob['Class_0'], sample_prob['Class_1']], 
                     color=['#512b58', '#fe346e'])  # 绘制水平条形图
 
