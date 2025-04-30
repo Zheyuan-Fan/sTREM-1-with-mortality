@@ -9,13 +9,13 @@ model = joblib.load('XGBoost.pkl')  # 加载训练好的XGBoost模型
 
 # Define the feature options
 Initial_cardiac_rhythm_options = {
-    0: 'Non-shockable (0)',  # 非可除颤心律
-    1: 'Shockable (1)',  # 可除颤心律
+    0: 'Non-shockable',  # 非可除颤心律
+    1: 'Shockable',  # 可除颤心律
 }
 
 Bystander_CPR_options = {
-    0: 'No (0)',  # 没有旁观者CPR
-    1: 'Yes (1)',  #有旁观者CPR
+    0: 'No',  # 没有旁观者CPR
+    1: 'Yes',  #有旁观者CPR
 }
 
 
@@ -38,27 +38,25 @@ Bystander_CPR = st.sidebar.selectbox("Bystander_CPR:", options=list(Bystander_CP
 SOFA_score = st.sidebar.number_input("SOFA_score:", min_value=0, max_value=14, value=4)  # 输入框
 
 # sTREM_1 input
-sTREM_1 = st.sidebar.number_input("sTREM_1:", min_value=33.12, max_value=594.09, value=300)  # 输入框
+sTREM_1 = st.sidebar.number_input("sTREM_1:", min_value=33.12, max_value=594.09, value=300.00)  # 输入框
 
 # NSE input
-NSE = st.sidebar.number_input("NSE:", min_value=1.30, max_value=68.52, value=10)  # 输入框
+NSE = st.sidebar.number_input("NSE:", min_value=1.30, max_value=68.52, value=10.00)  # 输入框
 
 # IL_6 input
-IL_6 = st.sidebar.number_input("IL_6:", min_value=20.27, max_value=181.45, value=30)  # 输入框
+IL_6 = st.sidebar.number_input("IL_6:", min_value=20.27, max_value=181.45, value=30.00)  # 输入框
 
 # IL_10 input
-IL_10 = st.sidebar.number_input("IL_10:", min_value=1.06, max_value=38.69, value=15)  # 输入框
-
+IL_10 = st.sidebar.number_input("IL_10:", min_value=1.06, max_value=38.69, value=15.00)  # 输入框
 
 # CRP input
-CRP = st.sidebar.number_input("CRP:", min_value=0.09, max_value=5.94, value=5)  # 输入框
-
+CRP = st.sidebar.number_input("CRP:", min_value=0.09, max_value=5.94, value=5.00)  # 输入框
 
 # hs_TnI input
 hs_TnI  = st.sidebar.number_input("hs_TnI:", min_value=0.01, max_value=50.87, value=21.01)  # 输入框
 
 # Creatinine input
-Creatinine = st.sidebar.number_input("Creatinine:", min_value=38.00, max_value=1348.00, value=90)  # 输入框
+Creatinine = st.sidebar.number_input("Creatinine:", min_value=38.00, max_value=1348.00, value=90.00)  # 输入框
 
 # Process the input and make a prediction
 feature_values = [CPR_time, Initial_cardiac_rhythm, Bystander_CPR, SOFA_score, sTREM_1, NSE, IL_6, IL_10, CRP, hs_TnI, Creatinine]  # 收集所有输入的特征
@@ -76,14 +74,14 @@ if st.button("Make Prediction"):  # 如果点击了预测按钮
     # Generate advice based on the prediction result
     probability = predicted_proba[predicted_class] * 100  # 根据预测类别获取对应的概率，并转化为百分比
 
-    if predicted_class == 1:  # 如果预测为1
+    if predicted_class == 1:  # 如果预测为死亡
         advice = (
             f"According to our model, the patient risk of mortality is {probability:.1f}%. "
-        )  # 如果预测为1，给出相关建议
-    else:  # 如果预测为无1
+        )  # 如果预测为死亡，给出相关建议
+    else:  # 如果预测为存活
         advice = (
             f"According to our model, the patient risk of mortality is {probability:.1f}%. "
-        )  # 如果预测为无1，给出相关建议
+        )  # 如果预测为存活，给出相关建议
 
     st.write(advice)  # 显示建议
 
