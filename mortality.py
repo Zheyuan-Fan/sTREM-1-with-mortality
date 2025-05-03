@@ -76,11 +76,11 @@ if st.button("Make Prediction"):  # 如果点击了预测按钮
 
     if predicted_class == 1:  # 如果预测为死亡
         advice = (
-            f"According to our model, the patient risk of mortality is {probability:.1f}%. "
+            f"According to our model, the patient's risk of mortality is {probability:.1f}%. "
         )  # 如果预测为死亡，给出相关建议
     else:  # 如果预测为存活
         advice = (
-            f"According to our model, the patient risk of mortality is {probability:.1f}%. "
+            f"According to our model, the patient's probability of survival is {probability:.1f}%. "
         )  # 如果预测为存活，给出相关建议
 
     st.write(advice)  # 显示建议
