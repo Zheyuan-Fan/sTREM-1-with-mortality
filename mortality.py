@@ -3,6 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import shap
 
 # Load the trained model
 model = joblib.load('XGBoost.pkl')  # 加载训练好的XGBoost模型
