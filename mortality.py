@@ -3,7 +3,6 @@ import joblib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import shap
 
 # Load the trained model
 model = joblib.load('XGBoost.pkl')  # 加载训练好的XGBoost模型
@@ -63,9 +62,6 @@ Creatinine = st.sidebar.number_input("Creatinine:", min_value=38.00, max_value=1
 feature_values = [CPR_time, Initial_cardiac_rhythm, Bystander_CPR, SOFA_score, sTREM_1, NSE, IL_6, IL_10, CRP, hs_TnI, Creatinine]  # 收集所有输入的特征
 features = np.array([feature_values])  # 转换为NumPy数组
 
-#
-explainer = shap.TreeExplainer(model)
-
 if st.button("Make Prediction"):  # 如果点击了预测按钮
     # Predict the class and probabilities
     predicted_class = model.predict(features)[0]  # 预测类别
@@ -118,16 +114,3 @@ if st.button("Make Prediction"):  # 如果点击了预测按钮
 
     # Show the plot
     st.pyplot(plt)  # 显示图表
-
-    ## SHAP力图生成 
-    shap_values = explainer(features)
-
-    # 使用Matplotlib渲染 
-    plt.figure(figsize=(10,6)) 
-    shap.plots.waterfall(shap_values[0],  max_display=10)
-    st.pyplot(plt.gcf()) 
-    
-    # 交互式HTML展示 
-    st.markdown("Prediction Model with SHAP Visualization")
-    shap_html = shap.plots.force(shap_values[0],  matplotlib=False)
-    st.components.v1.html(shap_html,  height=400)
